@@ -1,6 +1,6 @@
 ﻿namespace Test
 {
-    partial class Form1
+    partial class StartPage
     {
         /// <summary>
         /// Required designer variable.
@@ -28,14 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.connectButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // Form1
+            // connectButton
+            // 
+            this.connectButton.Location = new System.Drawing.Point(215, 107);
+            this.connectButton.Name = "connectButton";
+            this.connectButton.Size = new System.Drawing.Size(127, 54);
+            this.connectButton.TabIndex = 0;
+            this.connectButton.Text = "Connect";
+            this.connectButton.UseVisualStyleBackColor = true;
+            this.connectButton.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // StartPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(592, 291);
-            this.Name = "Form1";
+            this.Controls.Add(this.connectButton);
+            this.Name = "StartPage";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
@@ -43,6 +55,8 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.Button connectButton;
     }
 }
 
