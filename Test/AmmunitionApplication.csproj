@@ -46,16 +46,75 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="StartPage.cs">
+    <Compile Include="AddForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="StartPage.Designer.cs">
-      <DependentUpon>StartPage.cs</DependentUpon>
+    <Compile Include="AddForm.Designer.cs">
+      <DependentUpon>AddForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Case.cs" />
+    <Compile Include="CaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CaseForm.Designer.cs">
+      <DependentUpon>CaseForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Powder.cs" />
+    <Compile Include="PowderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PowderForm.Designer.cs">
+      <DependentUpon>PowderForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Primer.cs" />
+    <Compile Include="PrimerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PrimerForm.Designer.cs">
+      <DependentUpon>PrimerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
+    <Compile Include="Projectile.cs" />
+    <Compile Include="ProjectileForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProjectileForm.Designer.cs">
+      <DependentUpon>ProjectileForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="StartPage.resx">
-      <DependentUpon>StartPage.cs</DependentUpon>
+    <Compile Include="Rifle.cs" />
+    <Compile Include="RifleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RifleForm.Designer.cs">
+      <DependentUpon>RifleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Series.cs" />
+    <Compile Include="Session.cs" />
+    <Compile Include="Shot.cs" />
+    <EmbeddedResource Include="AddForm.resx">
+      <DependentUpon>AddForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CaseForm.resx">
+      <DependentUpon>CaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PowderForm.resx">
+      <DependentUpon>PowderForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrimerForm.resx">
+      <DependentUpon>PrimerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProjectileForm.resx">
+      <DependentUpon>ProjectileForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -66,6 +125,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="RifleForm.resx">
+      <DependentUpon>RifleForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
