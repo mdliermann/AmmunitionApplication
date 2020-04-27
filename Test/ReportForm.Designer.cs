@@ -1,4 +1,4 @@
-﻿namespace Test
+﻿namespace AmmunitionProject
 {
     partial class ReportForm
     {

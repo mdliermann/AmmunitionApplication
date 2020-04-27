@@ -46,7 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Case.cs" />
     <Compile Include="CaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -59,14 +58,12 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Powder.cs" />
     <Compile Include="PowderForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PowderForm.Designer.cs">
       <DependentUpon>PowderForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Primer.cs" />
     <Compile Include="PrimerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,7 +71,6 @@
       <DependentUpon>PrimerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
-    <Compile Include="Projectile.cs" />
     <Compile Include="ProjectileForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,7 +84,6 @@
     <Compile Include="ReportForm.Designer.cs">
       <DependentUpon>ReportForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Rifle.cs" />
     <Compile Include="RifleForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 
-namespace Test
+namespace AmmunitionProject
 {
     public partial class ReportForm : Form
     {

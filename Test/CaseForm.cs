@@ -9,9 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 
-namespace Test
-{
-
+namespace AmmunitionProject
+{ 
     public partial class CaseForm : Form
     {
         SqlCommand cmd;
@@ -32,8 +31,9 @@ namespace Test
             adapt = new SqlDataAdapter("SELECT * FROM dbo.Cases", con);
             adapt.Fill(dt);
             dgvCases.DataSource = dt;
-            dgvCases.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dgvCases.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            dgvCases.Columns[0].Visible = false;
+            dgvCases.ReadOnly = true;
+            dgvCases.MultiSelect = false;
             con.Close();
         }
 
@@ -57,7 +57,7 @@ namespace Test
                 cmd.Parameters.AddWithValue("@manufacturer", txtCaseManufacturer.Text);
                 cmd.ExecuteNonQuery();
                 con.Close();
-                MessageBox.Show("New case added");
+                MessageBox.Show("Case added successfully");
                 DisplayData();
                 ClearData(); 
             }
@@ -86,7 +86,7 @@ namespace Test
                 cmd.Parameters.AddWithValue("@manufacturer", manufacturer);
                 cmd.ExecuteNonQuery();
                 con.Close();
-                MessageBox.Show("Case Updated Successfully");
+                MessageBox.Show("Case updated successfully");
                 DisplayData();
                 ClearData();
             }
@@ -94,7 +94,21 @@ namespace Test
 
         private void btnDeleteCase_Click(object sender, EventArgs e)
         {
-
+            if (id != -1)
+            {
+                cmd = new SqlCommand("DELETE from dbo.Cases WHERE Case_ID=@id", con);
+                con.Open();
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.ExecuteNonQuery();
+                con.Close();
+                MessageBox.Show("Case deleted successfully");
+                DisplayData();
+                ClearData();
+            }
+            else
+            {
+                MessageBox.Show("Please select case to delete");
+            }
         }
     }
 }

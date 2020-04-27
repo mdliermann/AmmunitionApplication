@@ -9,16 +9,42 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 
-namespace Test
+namespace AmmunitionProject
 {
     public partial class RifleForm : Form
 
     {
         SqlCommand cmd;
         SqlConnection con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
+        SqlDataAdapter adapt;
+        int id = -1; 
+
         public RifleForm()
         {
             InitializeComponent();
+            DisplayData();
+        }
+
+        private void DisplayData()
+        {
+            con.Open();
+            DataTable dt = new DataTable();
+            adapt = new SqlDataAdapter("SELECT * FROM dbo.Rifles", con);
+            adapt.Fill(dt);
+            dgvRifles.DataSource = dt;
+            dgvRifles.Columns[0].Visible = false;
+            dgvRifles.ReadOnly = true;
+            dgvRifles.MultiSelect = false;
+            con.Close();
+        }
+
+        private void ClearData()
+        {
+            txtBarrel.Text = "";
+            txtCaliber.Text = "";
+            txtMakeAndModel.Text = "";
+            txtScope.Text = "";
+            id = -1;
         }
 
         private void btnNewRifle_Click(object sender, EventArgs e)
@@ -27,46 +53,97 @@ namespace Test
             string caliber = txtCaliber.Text;
             string barrel = txtBarrel.Text;
             string scope = txtScope.Text;
-            bool success = true;
 
             if (string.IsNullOrWhiteSpace(makeModel))
             {
                 MessageBox.Show("Error: Make and Model is blank");
-                success = false;
             }
-            if (string.IsNullOrWhiteSpace(caliber))
+            else if (string.IsNullOrWhiteSpace(caliber))
             {
                 MessageBox.Show("Error: Caliber is blank");
-                success = false;
             }
-            if (string.IsNullOrWhiteSpace(barrel))
+            else if (string.IsNullOrWhiteSpace(barrel))
             {
                 MessageBox.Show("Error: Barrel is blank");
-                success = false;
             }
-            if (string.IsNullOrWhiteSpace(scope))
+            else if (string.IsNullOrWhiteSpace(scope))
             {
                 MessageBox.Show("Error: Scope is blank");
-                success = false;
             }
-
-            if(success)
+            else
             {
-                Rifle rf = new Rifle(makeModel, caliber, barrel, scope);
-                Add_New_Rifle(rf);
-                MessageBox.Show("New rifle added");
+                cmd = new SqlCommand("INSERT INTO dbo.Rifles(Make_Model, Caliber, Barrel, Scope) " +
+                    "Values (@makeModel, @caliber, @barrel, @scope)", con);
+
+                con.Open();
+                cmd.Parameters.AddWithValue("@makeModel", makeModel);
+                cmd.Parameters.AddWithValue("@caliber", caliber);
+                cmd.Parameters.AddWithValue("@barrel", barrel);
+                cmd.Parameters.AddWithValue("@scope", scope);
+                cmd.ExecuteNonQuery();
+                con.Close();
+                MessageBox.Show("Case added successfully");
+                DisplayData();
+                ClearData();
             }
         }
 
-        private void Add_New_Rifle(Rifle r)
+        private void dgvRifles_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            cmd = new SqlCommand("INSERT INTO dbo.Rifles Values " +
-                "('" + r.MakeModel + "' , '"  + r.Caliber + "' , '" + r.Barrel + "' , '" + r.Scope + "')", con);
+            id = Convert.ToInt32(dgvRifles.Rows[e.RowIndex].Cells[0].Value.ToString());
+            txtMakeAndModel.Text = dgvRifles.Rows[e.RowIndex].Cells[1].Value.ToString();
+            txtCaliber.Text = dgvRifles.Rows[e.RowIndex].Cells[2].Value.ToString();
+            txtBarrel.Text = dgvRifles.Rows[e.RowIndex].Cells[3].Value.ToString();
+            txtScope.Text = dgvRifles.Rows[e.RowIndex].Cells[4].Value.ToString();
 
-            con.Open();
-            cmd.ExecuteNonQuery();
-
-            con.Close();
         }
+
+        private void btnEditRifles_Click(object sender, EventArgs e)
+        {
+            string makeModel = txtMakeAndModel.Text;
+            string barrel = txtBarrel.Text;
+            string caliber = txtCaliber.Text;
+            string scope = txtScope.Text;
+
+            if (string.IsNullOrWhiteSpace(makeModel))
+                MessageBox.Show("Error: Make and Model is blank");
+            else
+            {
+                cmd = new SqlCommand("UPDATE dbo.Rifles " +
+                    "SET Make_Model = @makeModel, Caliber = @caliber, Barrel = @barrel, Scope = @scope " +
+                    "WHERE Rifle_ID=@id", con);
+                con.Open();
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.Parameters.AddWithValue("@makeModel", makeModel);
+                cmd.Parameters.AddWithValue("@caliber", caliber);
+                cmd.Parameters.AddWithValue("@barrel", barrel);
+                cmd.Parameters.AddWithValue("@scope", scope);
+                cmd.ExecuteNonQuery();
+                con.Close();
+                MessageBox.Show("Rifle updated successfully");
+                DisplayData();
+                ClearData();
+            }
+        }
+
+        private void btnDeleteRifles_Click(object sender, EventArgs e)
+        {
+            if (id != -1)
+            {
+                cmd = new SqlCommand("DELETE from dbo.Rifles WHERE Rifle_ID=@id", con);
+                con.Open();
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.ExecuteNonQuery();
+                con.Close();
+                MessageBox.Show("Rifle deleted successfully");
+                DisplayData();
+                ClearData();
+            }
+            else
+            {
+                MessageBox.Show("Please select rifle to delete");
+            }
+        }
+
     }
 }
