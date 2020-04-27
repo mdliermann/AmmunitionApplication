@@ -57,6 +57,7 @@
             this.btnNewPowder.TabIndex = 1;
             this.btnNewPowder.Text = "Add";
             this.btnNewPowder.UseVisualStyleBackColor = true;
+            this.btnNewPowder.Click += new System.EventHandler(this.btnNewPowder_Click);
             // 
             // PowderForm
             // 

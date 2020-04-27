@@ -12,7 +12,10 @@ using System.Data.SqlClient;
 namespace Test
 {
     public partial class RifleForm : Form
+
     {
+        SqlCommand cmd;
+        SqlConnection con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
         public RifleForm()
         {
             InitializeComponent();
@@ -24,16 +27,30 @@ namespace Test
             string caliber = txtCaliber.Text;
             string barrel = txtBarrel.Text;
             string scope = txtScope.Text;
+            bool success = true;
 
             if (string.IsNullOrWhiteSpace(makeModel))
+            {
                 MessageBox.Show("Error: Make and Model is blank");
-            else if (string.IsNullOrWhiteSpace(caliber))
+                success = false;
+            }
+            if (string.IsNullOrWhiteSpace(caliber))
+            {
                 MessageBox.Show("Error: Caliber is blank");
-            else if (string.IsNullOrWhiteSpace(barrel))
+                success = false;
+            }
+            if (string.IsNullOrWhiteSpace(barrel))
+            {
                 MessageBox.Show("Error: Barrel is blank");
-            else if (string.IsNullOrWhiteSpace(scope))
+                success = false;
+            }
+            if (string.IsNullOrWhiteSpace(scope))
+            {
                 MessageBox.Show("Error: Scope is blank");
-            else
+                success = false;
+            }
+
+            if(success)
             {
                 Rifle rf = new Rifle(makeModel, caliber, barrel, scope);
                 Add_New_Rifle(rf);
@@ -41,14 +58,10 @@ namespace Test
             }
         }
 
-        private void Add_New_Rifle(Rifle rifle)
+        private void Add_New_Rifle(Rifle r)
         {
-            string cs;
-            SqlCommand cmd;
-            cs = "Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True";
-            SqlConnection con = new SqlConnection(cs);
             cmd = new SqlCommand("INSERT INTO dbo.Rifles Values " +
-                "('" + rifle.MakeModel + "' , '"  + rifle.Caliber + "' , '" + rifle.Barrel + "' , '" + rifle.Scope + "')", con);
+                "('" + r.MakeModel + "' , '"  + r.Caliber + "' , '" + r.Barrel + "' , '" + r.Scope + "')", con);
 
             con.Open();
             cmd.ExecuteNonQuery();

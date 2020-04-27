@@ -41,6 +41,7 @@
             this.btnNewPrimer.TabIndex = 1;
             this.btnNewPrimer.Text = "Add";
             this.btnNewPrimer.UseVisualStyleBackColor = true;
+            this.btnNewPrimer.Click += new System.EventHandler(this.btnNewPrimer_Click);
             // 
             // lblDescription
             // 
@@ -68,7 +69,6 @@
             this.Controls.Add(this.btnNewPrimer);
             this.Name = "PrimerForm";
             this.Text = "PrimerForm";
-            this.Load += new System.EventHandler(this.PrimerForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

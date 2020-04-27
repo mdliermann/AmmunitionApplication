@@ -28,46 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.connectButton = new System.Windows.Forms.Button();
-            this.btnAdd = new System.Windows.Forms.Button();
-            this.btnEdit = new System.Windows.Forms.Button();
+            this.btnCases = new System.Windows.Forms.Button();
             this.btnReport = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnProjectiles = new System.Windows.Forms.Button();
+            this.btnPowders = new System.Windows.Forms.Button();
+            this.btnPrimers = new System.Windows.Forms.Button();
+            this.btnRilfes = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // connectButton
+            // btnCases
             // 
-            this.connectButton.Location = new System.Drawing.Point(226, 50);
-            this.connectButton.Name = "connectButton";
-            this.connectButton.Size = new System.Drawing.Size(127, 54);
-            this.connectButton.TabIndex = 0;
-            this.connectButton.Text = "Connect";
-            this.connectButton.UseVisualStyleBackColor = true;
-            this.connectButton.Click += new System.EventHandler(this.connectButton_Click);
-            // 
-            // btnAdd
-            // 
-            this.btnAdd.Location = new System.Drawing.Point(106, 175);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 23);
-            this.btnAdd.TabIndex = 2;
-            this.btnAdd.Text = "Add";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // btnEdit
-            // 
-            this.btnEdit.Location = new System.Drawing.Point(256, 175);
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(75, 23);
-            this.btnEdit.TabIndex = 3;
-            this.btnEdit.Text = "Edit";
-            this.btnEdit.UseVisualStyleBackColor = true;
-            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            this.btnCases.Location = new System.Drawing.Point(12, 65);
+            this.btnCases.Name = "btnCases";
+            this.btnCases.Size = new System.Drawing.Size(75, 23);
+            this.btnCases.TabIndex = 2;
+            this.btnCases.Text = "Cases";
+            this.btnCases.UseVisualStyleBackColor = true;
+            this.btnCases.Click += new System.EventHandler(this.btnCases_Click);
             // 
             // btnReport
             // 
-            this.btnReport.Location = new System.Drawing.Point(401, 175);
+            this.btnReport.Location = new System.Drawing.Point(331, 65);
             this.btnReport.Name = "btnReport";
             this.btnReport.Size = new System.Drawing.Size(75, 23);
             this.btnReport.TabIndex = 4;
@@ -77,7 +60,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(505, 256);
+            this.btnClose.Location = new System.Drawing.Point(331, 106);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 5;
@@ -85,30 +68,85 @@
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(37, 34);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(109, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Change Components:";
+            // 
+            // btnProjectiles
+            // 
+            this.btnProjectiles.Location = new System.Drawing.Point(12, 94);
+            this.btnProjectiles.Name = "btnProjectiles";
+            this.btnProjectiles.Size = new System.Drawing.Size(75, 23);
+            this.btnProjectiles.TabIndex = 7;
+            this.btnProjectiles.Text = "Projectiles";
+            this.btnProjectiles.UseVisualStyleBackColor = true;
+            this.btnProjectiles.Click += new System.EventHandler(this.btnProjectiles_Click);
+            // 
+            // btnPowders
+            // 
+            this.btnPowders.Location = new System.Drawing.Point(93, 94);
+            this.btnPowders.Name = "btnPowders";
+            this.btnPowders.Size = new System.Drawing.Size(75, 23);
+            this.btnPowders.TabIndex = 8;
+            this.btnPowders.Text = "Powders";
+            this.btnPowders.UseVisualStyleBackColor = true;
+            this.btnPowders.Click += new System.EventHandler(this.btnPowders_Click);
+            // 
+            // btnPrimers
+            // 
+            this.btnPrimers.Location = new System.Drawing.Point(93, 65);
+            this.btnPrimers.Name = "btnPrimers";
+            this.btnPrimers.Size = new System.Drawing.Size(75, 23);
+            this.btnPrimers.TabIndex = 9;
+            this.btnPrimers.Text = "Primers";
+            this.btnPrimers.UseVisualStyleBackColor = true;
+            this.btnPrimers.Click += new System.EventHandler(this.btnPrimers_Click);
+            // 
+            // btnRilfes
+            // 
+            this.btnRilfes.Location = new System.Drawing.Point(53, 123);
+            this.btnRilfes.Name = "btnRilfes";
+            this.btnRilfes.Size = new System.Drawing.Size(75, 23);
+            this.btnRilfes.TabIndex = 10;
+            this.btnRilfes.Text = "Rifles";
+            this.btnRilfes.UseVisualStyleBackColor = true;
+            this.btnRilfes.Click += new System.EventHandler(this.btnRilfes_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(592, 291);
+            this.ClientSize = new System.Drawing.Size(442, 170);
+            this.Controls.Add(this.btnRilfes);
+            this.Controls.Add(this.btnPrimers);
+            this.Controls.Add(this.btnPowders);
+            this.Controls.Add(this.btnProjectiles);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnReport);
-            this.Controls.Add(this.btnEdit);
-            this.Controls.Add(this.btnAdd);
-            this.Controls.Add(this.connectButton);
+            this.Controls.Add(this.btnCases);
             this.Name = "MainForm";
             this.Text = "Main Page";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button connectButton;
-        private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.Button btnEdit;
+        private System.Windows.Forms.Button btnCases;
         private System.Windows.Forms.Button btnReport;
         private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnProjectiles;
+        private System.Windows.Forms.Button btnPowders;
+        private System.Windows.Forms.Button btnPrimers;
+        private System.Windows.Forms.Button btnRilfes;
     }
 }
 

@@ -51,54 +51,47 @@ namespace Test
             }
         }
         */
-        private void connectButton_Click(object sender, EventArgs e)
+
+        private void btnCases_Click(object sender, EventArgs e)
         {
-            string connetionString;
-            SqlCommand cmd;
-            SqlDataReader datareader;
-            String sql = "";
-            String output = "";
-
-            connetionString = "Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True";
-            SqlConnection cnn = new SqlConnection(connetionString);
-            cnn.Open();
-
-            sql = "Select * from Rifles";
-            cmd = new SqlCommand(sql, cnn);
-
-            datareader = cmd.ExecuteReader();
-            
-            while (datareader.Read())
-            {
-                output += datareader.GetValue(0) + " - " + datareader.GetValue(1) + 
-                    " - " + datareader.GetValue(2) + " - " + datareader.GetValue(3) + " - " + datareader.GetValue(4) + "\n";
-            }
-            MessageBox.Show(output);
-
-            datareader.Close();
-            cmd.Dispose();
-            cnn.Close();
+            Form casef = new CaseForm();
+            casef.Show();
         }
 
-        private void btnEdit_Click(object sender, EventArgs e)
+        private void btnPrimers_Click(object sender, EventArgs e)
         {
+            Form primf = new PrimerForm();
+            primf.Show();
+        }
 
+        private void btnPowders_Click(object sender, EventArgs e)
+        {
+            Form powdf = new PowderForm();
+            powdf.Show();
+        }
+
+        private void btnProjectiles_Click(object sender, EventArgs e)
+        {
+            Form projf = new ProjectileForm();
+            projf.Show();
+        }
+
+        private void btnRilfes_Click(object sender, EventArgs e)
+        {
+            Form rif = new RifleForm();
+            rif.Show();
         }
 
         private void btnReport_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            Form af = new AddForm();
-            af.Show();
+            Form rf = new ReportForm();
+            rf.Show();
         }
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Application.Exit();
         }
+
     }
 }

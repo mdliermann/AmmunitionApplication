@@ -53,6 +53,7 @@
             this.btnNewProjectile.TabIndex = 7;
             this.btnNewProjectile.Text = "Add";
             this.btnNewProjectile.UseVisualStyleBackColor = true;
+            this.btnNewProjectile.Click += new System.EventHandler(this.btnNewProjectile_Click);
             // 
             // lblPN
             // 
@@ -113,15 +114,15 @@
             this.lblBCG7.AutoSize = true;
             this.lblBCG7.Location = new System.Drawing.Point(12, 175);
             this.lblBCG7.Name = "lblBCG7";
-            this.lblBCG7.Size = new System.Drawing.Size(41, 13);
+            this.lblBCG7.Size = new System.Drawing.Size(87, 13);
             this.lblBCG7.TabIndex = 7;
-            this.lblBCG7.Text = "BC_G7";
+            this.lblBCG7.Text = "BC_G7 (optional)";
             // 
             // txtBCG7
             // 
-            this.txtBCG7.Location = new System.Drawing.Point(78, 168);
+            this.txtBCG7.Location = new System.Drawing.Point(105, 168);
             this.txtBCG7.Name = "txtBCG7";
-            this.txtBCG7.Size = new System.Drawing.Size(219, 20);
+            this.txtBCG7.Size = new System.Drawing.Size(192, 20);
             this.txtBCG7.TabIndex = 6;
             // 
             // txtBCG1
@@ -137,7 +138,6 @@
             this.txtWeight.Name = "txtWeight";
             this.txtWeight.Size = new System.Drawing.Size(219, 20);
             this.txtWeight.TabIndex = 4;
-            this.txtWeight.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
             // txtProjDescription
             // 
