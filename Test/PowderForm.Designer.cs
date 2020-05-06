@@ -40,7 +40,7 @@
             // 
             // txtPowderManufacturer
             // 
-            this.txtPowderManufacturer.Location = new System.Drawing.Point(85, 10);
+            this.txtPowderManufacturer.Location = new System.Drawing.Point(85, 12);
             this.txtPowderManufacturer.Name = "txtPowderManufacturer";
             this.txtPowderManufacturer.Size = new System.Drawing.Size(244, 20);
             this.txtPowderManufacturer.TabIndex = 0;
@@ -58,7 +58,7 @@
             // 
             this.btnNewPowder.Location = new System.Drawing.Point(335, 10);
             this.btnNewPowder.Name = "btnNewPowder";
-            this.btnNewPowder.Size = new System.Drawing.Size(75, 23);
+            this.btnNewPowder.Size = new System.Drawing.Size(89, 23);
             this.btnNewPowder.TabIndex = 1;
             this.btnNewPowder.Text = "Add";
             this.btnNewPowder.UseVisualStyleBackColor = true;
@@ -78,7 +78,7 @@
             // 
             this.btnDeletePowder.Location = new System.Drawing.Point(335, 68);
             this.btnDeletePowder.Name = "btnDeletePowder";
-            this.btnDeletePowder.Size = new System.Drawing.Size(75, 23);
+            this.btnDeletePowder.Size = new System.Drawing.Size(89, 23);
             this.btnDeletePowder.TabIndex = 3;
             this.btnDeletePowder.Text = "Delete";
             this.btnDeletePowder.UseVisualStyleBackColor = true;
@@ -88,7 +88,7 @@
             // 
             this.btnEditPowder.Location = new System.Drawing.Point(335, 39);
             this.btnEditPowder.Name = "btnEditPowder";
-            this.btnEditPowder.Size = new System.Drawing.Size(75, 23);
+            this.btnEditPowder.Size = new System.Drawing.Size(89, 23);
             this.btnEditPowder.TabIndex = 4;
             this.btnEditPowder.Text = "Edit";
             this.btnEditPowder.UseVisualStyleBackColor = true;

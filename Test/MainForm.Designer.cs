@@ -36,11 +36,12 @@
             this.btnPowders = new System.Windows.Forms.Button();
             this.btnPrimers = new System.Windows.Forms.Button();
             this.btnRilfes = new System.Windows.Forms.Button();
+            this.btnSessions = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnCases
             // 
-            this.btnCases.Location = new System.Drawing.Point(12, 65);
+            this.btnCases.Location = new System.Drawing.Point(12, 54);
             this.btnCases.Name = "btnCases";
             this.btnCases.Size = new System.Drawing.Size(75, 23);
             this.btnCases.TabIndex = 2;
@@ -50,7 +51,7 @@
             // 
             // btnReport
             // 
-            this.btnReport.Location = new System.Drawing.Point(331, 65);
+            this.btnReport.Location = new System.Drawing.Point(355, 12);
             this.btnReport.Name = "btnReport";
             this.btnReport.Size = new System.Drawing.Size(75, 23);
             this.btnReport.TabIndex = 4;
@@ -60,7 +61,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(331, 106);
+            this.btnClose.Location = new System.Drawing.Point(355, 41);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 5;
@@ -71,15 +72,15 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(37, 34);
+            this.label1.Location = new System.Drawing.Point(22, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(109, 13);
+            this.label1.Size = new System.Drawing.Size(131, 13);
             this.label1.TabIndex = 6;
-            this.label1.Text = "Change Components:";
+            this.label1.Text = "View/Modify Components:";
             // 
             // btnProjectiles
             // 
-            this.btnProjectiles.Location = new System.Drawing.Point(12, 94);
+            this.btnProjectiles.Location = new System.Drawing.Point(12, 83);
             this.btnProjectiles.Name = "btnProjectiles";
             this.btnProjectiles.Size = new System.Drawing.Size(75, 23);
             this.btnProjectiles.TabIndex = 7;
@@ -89,7 +90,7 @@
             // 
             // btnPowders
             // 
-            this.btnPowders.Location = new System.Drawing.Point(93, 94);
+            this.btnPowders.Location = new System.Drawing.Point(93, 83);
             this.btnPowders.Name = "btnPowders";
             this.btnPowders.Size = new System.Drawing.Size(75, 23);
             this.btnPowders.TabIndex = 8;
@@ -99,7 +100,7 @@
             // 
             // btnPrimers
             // 
-            this.btnPrimers.Location = new System.Drawing.Point(93, 65);
+            this.btnPrimers.Location = new System.Drawing.Point(93, 54);
             this.btnPrimers.Name = "btnPrimers";
             this.btnPrimers.Size = new System.Drawing.Size(75, 23);
             this.btnPrimers.TabIndex = 9;
@@ -109,7 +110,7 @@
             // 
             // btnRilfes
             // 
-            this.btnRilfes.Location = new System.Drawing.Point(53, 123);
+            this.btnRilfes.Location = new System.Drawing.Point(52, 25);
             this.btnRilfes.Name = "btnRilfes";
             this.btnRilfes.Size = new System.Drawing.Size(75, 23);
             this.btnRilfes.TabIndex = 10;
@@ -117,11 +118,22 @@
             this.btnRilfes.UseVisualStyleBackColor = true;
             this.btnRilfes.Click += new System.EventHandler(this.btnRilfes_Click);
             // 
+            // btnSessions
+            // 
+            this.btnSessions.Location = new System.Drawing.Point(212, 41);
+            this.btnSessions.Name = "btnSessions";
+            this.btnSessions.Size = new System.Drawing.Size(75, 23);
+            this.btnSessions.TabIndex = 11;
+            this.btnSessions.Text = "Sessions";
+            this.btnSessions.UseVisualStyleBackColor = true;
+            this.btnSessions.Click += new System.EventHandler(this.btnSessions_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(442, 170);
+            this.ClientSize = new System.Drawing.Size(442, 118);
+            this.Controls.Add(this.btnSessions);
             this.Controls.Add(this.btnRilfes);
             this.Controls.Add(this.btnPrimers);
             this.Controls.Add(this.btnPowders);
@@ -147,6 +159,7 @@
         private System.Windows.Forms.Button btnPowders;
         private System.Windows.Forms.Button btnPrimers;
         private System.Windows.Forms.Button btnRilfes;
+        private System.Windows.Forms.Button btnSessions;
     }
 }
 

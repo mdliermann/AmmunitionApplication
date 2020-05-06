@@ -103,7 +103,7 @@
             // 
             // txtMakeAndModel
             // 
-            this.txtMakeAndModel.Location = new System.Drawing.Point(102, 10);
+            this.txtMakeAndModel.Location = new System.Drawing.Point(102, 12);
             this.txtMakeAndModel.Name = "txtMakeAndModel";
             this.txtMakeAndModel.Size = new System.Drawing.Size(370, 20);
             this.txtMakeAndModel.TabIndex = 0;
@@ -112,7 +112,7 @@
             // 
             this.btnNewRifle.Location = new System.Drawing.Point(478, 10);
             this.btnNewRifle.Name = "btnNewRifle";
-            this.btnNewRifle.Size = new System.Drawing.Size(75, 23);
+            this.btnNewRifle.Size = new System.Drawing.Size(89, 23);
             this.btnNewRifle.TabIndex = 4;
             this.btnNewRifle.Text = "Add";
             this.btnNewRifle.UseVisualStyleBackColor = true;
@@ -122,7 +122,7 @@
             // 
             this.btnDeleteRifles.Location = new System.Drawing.Point(478, 68);
             this.btnDeleteRifles.Name = "btnDeleteRifles";
-            this.btnDeleteRifles.Size = new System.Drawing.Size(75, 23);
+            this.btnDeleteRifles.Size = new System.Drawing.Size(88, 23);
             this.btnDeleteRifles.TabIndex = 5;
             this.btnDeleteRifles.Text = "Delete";
             this.btnDeleteRifles.UseVisualStyleBackColor = true;
@@ -132,7 +132,7 @@
             // 
             this.btnEditRifles.Location = new System.Drawing.Point(478, 39);
             this.btnEditRifles.Name = "btnEditRifles";
-            this.btnEditRifles.Size = new System.Drawing.Size(75, 23);
+            this.btnEditRifles.Size = new System.Drawing.Size(89, 23);
             this.btnEditRifles.TabIndex = 6;
             this.btnEditRifles.Text = "Edit";
             this.btnEditRifles.UseVisualStyleBackColor = true;
@@ -179,7 +179,7 @@
             this.Controls.Add(this.lblCaliber);
             this.Controls.Add(this.lblMakeModel);
             this.Name = "RifleForm";
-            this.Text = "Add Rifle";
+            this.Text = "Modify Rifles";
             ((System.ComponentModel.ISupportInitialize)(this.dgvRifles)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

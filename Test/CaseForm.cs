@@ -1,22 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Windows.Forms;
 
 namespace AmmunitionProject
-{ 
+{
     public partial class CaseForm : Form
     {
         SqlCommand cmd;
         SqlConnection con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
         SqlDataAdapter adapt;
-        int id = -1;   
+        int id = -1;
 
         public CaseForm()
         {
@@ -34,34 +28,45 @@ namespace AmmunitionProject
             dgvCases.Columns[0].Visible = false;
             dgvCases.ReadOnly = true;
             dgvCases.MultiSelect = false;
+            for (int i = 0; i < dgvCases.Columns.Count; i++)
+            {
+                dgvCases.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            }
             con.Close();
         }
 
         private void ClearData()
         {
             txtCaseManufacturer.Text = "";
-            id = -1; 
+            id = -1;
         }
 
         private void btnNewCase_Click(object sender, EventArgs e)
         {
             string manufacturer = txtCaseManufacturer.Text;
-            
+
             if (string.IsNullOrWhiteSpace(manufacturer))
                 MessageBox.Show("Error: Manufacturer is blank");
             else
             {
-                cmd = new SqlCommand("INSERT INTO dbo.Cases(manufacturer) Values (@manufacturer)", con);
+                try
+                {
+                    cmd = new SqlCommand("INSERT INTO dbo.Cases(manufacturer) Values (@manufacturer)", con);
 
-                con.Open();
-                cmd.Parameters.AddWithValue("@manufacturer", txtCaseManufacturer.Text);
-                cmd.ExecuteNonQuery();
-                con.Close();
-                MessageBox.Show("Case added successfully");
-                DisplayData();
-                ClearData(); 
+                    con.Open();
+                    cmd.Parameters.AddWithValue("@manufacturer", txtCaseManufacturer.Text);
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                    MessageBox.Show("Case added successfully");
+                    DisplayData();
+                    ClearData();
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("Error: Duplicate entry");
+                }
             }
-            
+
         }
 
         private void dgvCases_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -74,21 +79,28 @@ namespace AmmunitionProject
         {
             string manufacturer = txtCaseManufacturer.Text;
 
-            if (string.IsNullOrWhiteSpace(manufacturer))
-                MessageBox.Show("Error: Manufacturer is blank");
+            if (string.IsNullOrWhiteSpace(manufacturer) || id == -1)
+                MessageBox.Show("Please select a case to edit");
             else
             {
-                cmd = new SqlCommand("UPDATE dbo.Cases " +
-                    "SET manufacturer = @manufacturer " +
-                    "WHERE Case_ID=@id", con);
-                con.Open();
-                cmd.Parameters.AddWithValue("@id", id);
-                cmd.Parameters.AddWithValue("@manufacturer", manufacturer);
-                cmd.ExecuteNonQuery();
-                con.Close();
-                MessageBox.Show("Case updated successfully");
-                DisplayData();
-                ClearData();
+                try
+                {
+                    cmd = new SqlCommand("UPDATE dbo.Cases " +
+                        "SET manufacturer = @manufacturer " +
+                        "WHERE Case_ID=@id", con);
+                    con.Open();
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.Parameters.AddWithValue("@manufacturer", manufacturer);
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                    MessageBox.Show("Case updated successfully");
+                    DisplayData();
+                    ClearData();
+                }
+                catch(SqlException ex)
+                {
+                    MessageBox.Show("Error: Duplicate entry");
+                }
             }
         }
 
@@ -107,7 +119,7 @@ namespace AmmunitionProject
             }
             else
             {
-                MessageBox.Show("Please select case to delete");
+                MessageBox.Show("Please select a case to delete");
             }
         }
     }

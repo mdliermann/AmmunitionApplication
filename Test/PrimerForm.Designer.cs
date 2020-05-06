@@ -42,7 +42,7 @@
             // 
             this.btnNewPrimer.Location = new System.Drawing.Point(335, 10);
             this.btnNewPrimer.Name = "btnNewPrimer";
-            this.btnNewPrimer.Size = new System.Drawing.Size(75, 23);
+            this.btnNewPrimer.Size = new System.Drawing.Size(89, 23);
             this.btnNewPrimer.TabIndex = 1;
             this.btnNewPrimer.Text = "Add";
             this.btnNewPrimer.UseVisualStyleBackColor = true;
@@ -59,7 +59,7 @@
             // 
             // txtDescription
             // 
-            this.txtDescription.Location = new System.Drawing.Point(75, 10);
+            this.txtDescription.Location = new System.Drawing.Point(75, 12);
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(254, 20);
             this.txtDescription.TabIndex = 0;
@@ -78,7 +78,7 @@
             // 
             this.btnEditPrimers.Location = new System.Drawing.Point(335, 39);
             this.btnEditPrimers.Name = "btnEditPrimers";
-            this.btnEditPrimers.Size = new System.Drawing.Size(75, 23);
+            this.btnEditPrimers.Size = new System.Drawing.Size(89, 23);
             this.btnEditPrimers.TabIndex = 3;
             this.btnEditPrimers.Text = "Edit";
             this.btnEditPrimers.UseVisualStyleBackColor = true;
@@ -88,7 +88,7 @@
             // 
             this.btnDeletePrimers.Location = new System.Drawing.Point(335, 68);
             this.btnDeletePrimers.Name = "btnDeletePrimers";
-            this.btnDeletePrimers.Size = new System.Drawing.Size(75, 23);
+            this.btnDeletePrimers.Size = new System.Drawing.Size(89, 23);
             this.btnDeletePrimers.TabIndex = 4;
             this.btnDeletePrimers.Text = "Delete";
             this.btnDeletePrimers.UseVisualStyleBackColor = true;

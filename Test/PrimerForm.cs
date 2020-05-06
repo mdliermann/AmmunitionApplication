@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Windows.Forms;
 
 namespace AmmunitionProject
 {
@@ -21,7 +15,7 @@ namespace AmmunitionProject
         public PrimerForm()
         {
             InitializeComponent();
-            DisplayData(); 
+            DisplayData();
         }
 
         private void DisplayData()
@@ -34,6 +28,10 @@ namespace AmmunitionProject
             dgvPrimers.Columns[0].Visible = false;
             dgvPrimers.ReadOnly = true;
             dgvPrimers.MultiSelect = false;
+            for (int i = 0; i < dgvPrimers.Columns.Count; i++)
+            {
+                dgvPrimers.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            }
             con.Close();
         }
 
@@ -51,15 +49,22 @@ namespace AmmunitionProject
                 MessageBox.Show("Error: Description is blank");
             else
             {
-                cmd = new SqlCommand("INSERT INTO dbo.Primers(description) Values (@description)", con);
+                try
+                {
+                    cmd = new SqlCommand("INSERT INTO dbo.Primers(description) Values (@description)", con);
 
-                con.Open();
-                cmd.Parameters.AddWithValue("@description", txtDescription.Text);
-                cmd.ExecuteNonQuery();
-                con.Close();
-                MessageBox.Show("Primer added successfully");
-                DisplayData();
-                ClearData();
+                    con.Open();
+                    cmd.Parameters.AddWithValue("@description", txtDescription.Text);
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                    MessageBox.Show("Primer added successfully");
+                    DisplayData();
+                    ClearData();
+                }
+                catch(SqlException ex)
+                {
+                    MessageBox.Show("Error: duplicate entry");
+                }
             }
         }
 
@@ -74,20 +79,27 @@ namespace AmmunitionProject
             string description = txtDescription.Text;
 
             if (string.IsNullOrWhiteSpace(description) || id == -1)
-                MessageBox.Show("Error: Please select an entry from the list");
+                MessageBox.Show("Please select a primer to edit");
             else
             {
-                cmd = new SqlCommand("UPDATE dbo.Primers " +
-                    "SET description = @description " +
-                    "WHERE Primer_ID=@id", con);
-                con.Open();
-                cmd.Parameters.AddWithValue("@id", id);
-                cmd.Parameters.AddWithValue("@description", description);
-                cmd.ExecuteNonQuery();
-                con.Close();
-                MessageBox.Show("Primer updated Successfully");
-                DisplayData();
-                ClearData();
+                try
+                {
+                    cmd = new SqlCommand("UPDATE dbo.Primers " +
+                        "SET description = @description " +
+                        "WHERE Primer_ID=@id", con);
+                    con.Open();
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.Parameters.AddWithValue("@description", description);
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                    MessageBox.Show("Primer updated Successfully");
+                    DisplayData();
+                    ClearData();
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("Error: Duplicate entry");
+                }
             }
         }
 
@@ -106,9 +118,9 @@ namespace AmmunitionProject
             }
             else
             {
-                MessageBox.Show("Please select Primer to delete");
+                MessageBox.Show("Please select a primer to delete");
             }
         }
     }
-    
+
 }

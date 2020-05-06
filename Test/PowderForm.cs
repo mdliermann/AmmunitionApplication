@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Windows.Forms;
 
 namespace AmmunitionProject
 {
@@ -21,7 +15,7 @@ namespace AmmunitionProject
         public PowderForm()
         {
             InitializeComponent();
-            DisplayData(); 
+            DisplayData();
         }
 
         private void DisplayData()
@@ -34,6 +28,10 @@ namespace AmmunitionProject
             dgvPowders.Columns[0].Visible = false;
             dgvPowders.ReadOnly = true;
             dgvPowders.MultiSelect = false;
+            for (int i = 0; i < dgvPowders.Columns.Count; i++)
+            {
+                dgvPowders.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            }
             con.Close();
         }
 
@@ -51,15 +49,22 @@ namespace AmmunitionProject
                 MessageBox.Show("Error: Manufacturer is blank");
             else
             {
-                cmd = new SqlCommand("INSERT INTO dbo.Powders(manufacturer) Values (@manufacturer)", con);
+                try
+                {
+                    cmd = new SqlCommand("INSERT INTO dbo.Powders(manufacturer) Values (@manufacturer)", con);
 
-                con.Open();
-                cmd.Parameters.AddWithValue("@manufacturer", txtPowderManufacturer.Text);
-                cmd.ExecuteNonQuery();
-                con.Close();
-                MessageBox.Show("Powder updated successfully");
-                DisplayData();
-                ClearData();
+                    con.Open();
+                    cmd.Parameters.AddWithValue("@manufacturer", txtPowderManufacturer.Text);
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                    MessageBox.Show("Powder updated successfully");
+                    DisplayData();
+                    ClearData();
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("Error: Duplicate entry");
+                }
             }
 
         }
@@ -74,21 +79,28 @@ namespace AmmunitionProject
         {
             string manufacturer = txtPowderManufacturer.Text;
 
-            if (string.IsNullOrWhiteSpace(manufacturer))
-                MessageBox.Show("Error: Manufacturer is blank");
+            if (string.IsNullOrWhiteSpace(manufacturer) || id == -1)
+                MessageBox.Show("Please select a powder to edit");
             else
             {
-                cmd = new SqlCommand("UPDATE dbo.Powders " +
+                try
+                {
+                    cmd = new SqlCommand("UPDATE dbo.Powders " +
                     "SET manufacturer = @manufacturer " +
                     "WHERE Powder_ID=@id", con);
-                con.Open();
-                cmd.Parameters.AddWithValue("@id", id);
-                cmd.Parameters.AddWithValue("@manufacturer", manufacturer);
-                cmd.ExecuteNonQuery();
-                con.Close();
-                MessageBox.Show("Powder updated Successfully");
-                DisplayData();
-                ClearData();
+                    con.Open();
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.Parameters.AddWithValue("@manufacturer", manufacturer);
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+                    MessageBox.Show("Powder updated Successfully");
+                    DisplayData();
+                    ClearData();
+                }
+                catch (SqlException ex)
+                {
+                    MessageBox.Show("Error: Duplicate entry");
+                }
             }
         }
 
@@ -107,7 +119,7 @@ namespace AmmunitionProject
             }
             else
             {
-                MessageBox.Show("Please select Powder to delete");
+                MessageBox.Show("Please select a powder to delete");
             }
         }
     }

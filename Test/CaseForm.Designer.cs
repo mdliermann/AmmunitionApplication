@@ -42,7 +42,7 @@
             // 
             this.btnNewCase.Location = new System.Drawing.Point(335, 10);
             this.btnNewCase.Name = "btnNewCase";
-            this.btnNewCase.Size = new System.Drawing.Size(75, 23);
+            this.btnNewCase.Size = new System.Drawing.Size(89, 23);
             this.btnNewCase.TabIndex = 1;
             this.btnNewCase.Text = "Add";
             this.btnNewCase.UseVisualStyleBackColor = true;
@@ -59,7 +59,7 @@
             // 
             // txtCaseManufacturer
             // 
-            this.txtCaseManufacturer.Location = new System.Drawing.Point(85, 10);
+            this.txtCaseManufacturer.Location = new System.Drawing.Point(85, 12);
             this.txtCaseManufacturer.Name = "txtCaseManufacturer";
             this.txtCaseManufacturer.Size = new System.Drawing.Size(244, 20);
             this.txtCaseManufacturer.TabIndex = 0;
@@ -81,7 +81,7 @@
             // 
             this.btnDeleteCase.Location = new System.Drawing.Point(335, 68);
             this.btnDeleteCase.Name = "btnDeleteCase";
-            this.btnDeleteCase.Size = new System.Drawing.Size(75, 23);
+            this.btnDeleteCase.Size = new System.Drawing.Size(89, 23);
             this.btnDeleteCase.TabIndex = 3;
             this.btnDeleteCase.Text = "Delete";
             this.btnDeleteCase.UseVisualStyleBackColor = true;
@@ -91,7 +91,7 @@
             // 
             this.btnEditCase.Location = new System.Drawing.Point(335, 39);
             this.btnEditCase.Name = "btnEditCase";
-            this.btnEditCase.Size = new System.Drawing.Size(75, 23);
+            this.btnEditCase.Size = new System.Drawing.Size(89, 23);
             this.btnEditCase.TabIndex = 4;
             this.btnEditCase.Text = "Edit";
             this.btnEditCase.UseVisualStyleBackColor = true;
