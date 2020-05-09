@@ -62,25 +62,28 @@ namespace AmmunitionProject
                 MessageBox.Show("Error: Scope is blank");
             else
             {
-                try
+                using (con)
                 {
-                    cmd = new SqlCommand("INSERT INTO dbo.Rifles(Make_Model, Caliber, Barrel, Scope) " +
-                        "Values (@makeModel, @caliber, @barrel, @scope)", con);
+                    try
+                    {
+                        cmd = new SqlCommand("INSERT INTO dbo.Rifles(Make_Model, Caliber, Barrel, Scope) " +
+                            "Values (@makeModel, @caliber, @barrel, @scope)", con);
 
-                    con.Open();
-                    cmd.Parameters.AddWithValue("@makeModel", makeModel);
-                    cmd.Parameters.AddWithValue("@caliber", caliber);
-                    cmd.Parameters.AddWithValue("@barrel", barrel);
-                    cmd.Parameters.AddWithValue("@scope", scope);
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                    MessageBox.Show("Rifle added successfully");
-                    DisplayData();
-                    ClearData();
-                }
-                catch(SqlException ex)
-                {
-                    MessageBox.Show("Error adding entry");
+                        con.Open();
+                        cmd.Parameters.AddWithValue("@makeModel", makeModel);
+                        cmd.Parameters.AddWithValue("@caliber", caliber);
+                        cmd.Parameters.AddWithValue("@barrel", barrel);
+                        cmd.Parameters.AddWithValue("@scope", scope);
+                        cmd.ExecuteNonQuery();
+
+                        MessageBox.Show("Rifle added successfully");
+                        DisplayData();
+                        ClearData();
+                    }
+                    catch (SqlException)
+                    {
+                        MessageBox.Show("Error adding entry");
+                    }
                 }
             }
         }
@@ -114,26 +117,29 @@ namespace AmmunitionProject
                 MessageBox.Show("Error: Scope is blank");
             else
             {
-                try
+                using (con)
                 {
-                    cmd = new SqlCommand("UPDATE dbo.Rifles " +
-                        "SET Make_Model = @makeModel, Caliber = @caliber, Barrel = @barrel, Scope = @scope " +
-                        "WHERE Rifle_ID=@id", con);
-                    con.Open();
-                    cmd.Parameters.AddWithValue("@id", id);
-                    cmd.Parameters.AddWithValue("@makeModel", makeModel);
-                    cmd.Parameters.AddWithValue("@caliber", caliber);
-                    cmd.Parameters.AddWithValue("@barrel", barrel);
-                    cmd.Parameters.AddWithValue("@scope", scope);
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                    MessageBox.Show("Rifle updated successfully");
-                    DisplayData();
-                    ClearData();
-                }
-                catch (SqlException ex)
-                {
-                    MessageBox.Show("Error updating entry");
+                    try
+                    {
+                        cmd = new SqlCommand("UPDATE dbo.Rifles " +
+                            "SET Make_Model = @makeModel, Caliber = @caliber, Barrel = @barrel, Scope = @scope " +
+                            "WHERE Rifle_ID=@id", con);
+                        con.Open();
+                        cmd.Parameters.AddWithValue("@id", id);
+                        cmd.Parameters.AddWithValue("@makeModel", makeModel);
+                        cmd.Parameters.AddWithValue("@caliber", caliber);
+                        cmd.Parameters.AddWithValue("@barrel", barrel);
+                        cmd.Parameters.AddWithValue("@scope", scope);
+                        cmd.ExecuteNonQuery();
+
+                        MessageBox.Show("Rifle updated successfully");
+                        DisplayData();
+                        ClearData();
+                    }
+                    catch (SqlException)
+                    {
+                        MessageBox.Show("Error updating entry");
+                    }
                 }
             }
         }

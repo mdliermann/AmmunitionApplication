@@ -49,21 +49,23 @@ namespace AmmunitionProject
                 MessageBox.Show("Error: Manufacturer is blank");
             else
             {
-                try
+                using (con)
                 {
-                    cmd = new SqlCommand("INSERT INTO dbo.Cases(manufacturer) Values (@manufacturer)", con);
+                    try
+                    {
+                        cmd = new SqlCommand("INSERT INTO dbo.Cases(manufacturer) Values (@manufacturer)", con);
+                        con.Open();
+                        cmd.Parameters.AddWithValue("@manufacturer", txtCaseManufacturer.Text);
+                        cmd.ExecuteNonQuery();
 
-                    con.Open();
-                    cmd.Parameters.AddWithValue("@manufacturer", txtCaseManufacturer.Text);
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                    MessageBox.Show("Case added successfully");
-                    DisplayData();
-                    ClearData();
-                }
-                catch (SqlException ex)
-                {
-                    MessageBox.Show("Error: Duplicate entry");
+                        MessageBox.Show("Case added successfully");
+                        DisplayData();
+                        ClearData();
+                    }
+                    catch (SqlException)
+                    {
+                        MessageBox.Show("Error updating entry");
+                    }
                 }
             }
 
@@ -83,23 +85,26 @@ namespace AmmunitionProject
                 MessageBox.Show("Please select a case to edit");
             else
             {
-                try
+                using (con)
                 {
-                    cmd = new SqlCommand("UPDATE dbo.Cases " +
-                        "SET manufacturer = @manufacturer " +
-                        "WHERE Case_ID=@id", con);
-                    con.Open();
-                    cmd.Parameters.AddWithValue("@id", id);
-                    cmd.Parameters.AddWithValue("@manufacturer", manufacturer);
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                    MessageBox.Show("Case updated successfully");
-                    DisplayData();
-                    ClearData();
-                }
-                catch(SqlException ex)
-                {
-                    MessageBox.Show("Error: Duplicate entry");
+                    try
+                    {
+                        cmd = new SqlCommand("UPDATE dbo.Cases " +
+                            "SET manufacturer = @manufacturer " +
+                            "WHERE Case_ID=@id", con);
+                        con.Open();
+                        cmd.Parameters.AddWithValue("@id", id);
+                        cmd.Parameters.AddWithValue("@manufacturer", manufacturer);
+                        cmd.ExecuteNonQuery();
+
+                        MessageBox.Show("Case updated successfully");
+                        DisplayData();
+                        ClearData();
+                    }
+                    catch (SqlException)
+                    {
+                        MessageBox.Show("Error: Duplicate entry");
+                    }
                 }
             }
         }

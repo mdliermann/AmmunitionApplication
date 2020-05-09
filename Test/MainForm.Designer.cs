@@ -51,9 +51,9 @@
             // 
             // btnReport
             // 
-            this.btnReport.Location = new System.Drawing.Point(355, 12);
+            this.btnReport.Location = new System.Drawing.Point(214, 70);
             this.btnReport.Name = "btnReport";
-            this.btnReport.Size = new System.Drawing.Size(75, 23);
+            this.btnReport.Size = new System.Drawing.Size(94, 36);
             this.btnReport.TabIndex = 4;
             this.btnReport.Text = "Report";
             this.btnReport.UseVisualStyleBackColor = true;
@@ -61,7 +61,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(355, 41);
+            this.btnClose.Location = new System.Drawing.Point(355, 83);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 5;
@@ -120,9 +120,9 @@
             // 
             // btnSessions
             // 
-            this.btnSessions.Location = new System.Drawing.Point(212, 41);
+            this.btnSessions.Location = new System.Drawing.Point(214, 18);
             this.btnSessions.Name = "btnSessions";
-            this.btnSessions.Size = new System.Drawing.Size(75, 23);
+            this.btnSessions.Size = new System.Drawing.Size(94, 36);
             this.btnSessions.TabIndex = 11;
             this.btnSessions.Text = "Sessions";
             this.btnSessions.UseVisualStyleBackColor = true;

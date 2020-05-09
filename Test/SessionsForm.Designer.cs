@@ -72,9 +72,9 @@
             // 
             // txtDate
             // 
-            this.txtDate.Location = new System.Drawing.Point(125, 12);
+            this.txtDate.Location = new System.Drawing.Point(85, 12);
             this.txtDate.Name = "txtDate";
-            this.txtDate.Size = new System.Drawing.Size(347, 20);
+            this.txtDate.Size = new System.Drawing.Size(387, 20);
             this.txtDate.TabIndex = 3;
             // 
             // txtDistance
@@ -136,7 +136,7 @@
             // 
             this.btnSeries.Location = new System.Drawing.Point(477, 97);
             this.btnSeries.Name = "btnSeries";
-            this.btnSeries.Size = new System.Drawing.Size(89, 23);
+            this.btnSeries.Size = new System.Drawing.Size(89, 50);
             this.btnSeries.TabIndex = 10;
             this.btnSeries.Text = "Modify Series";
             this.btnSeries.UseVisualStyleBackColor = true;
@@ -147,9 +147,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 17);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(107, 13);
+            this.label1.Size = new System.Drawing.Size(30, 13);
             this.label1.TabIndex = 11;
-            this.label1.Text = "Date (YYYY-MM-DD)";
+            this.label1.Text = "Date";
             // 
             // label2
             // 
@@ -190,10 +190,10 @@
             // textBox6
             // 
             this.textBox6.Enabled = false;
-            this.textBox6.Location = new System.Drawing.Point(477, 128);
+            this.textBox6.Location = new System.Drawing.Point(477, 153);
             this.textBox6.Multiline = true;
             this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(89, 289);
+            this.textBox6.Size = new System.Drawing.Size(89, 264);
             this.textBox6.TabIndex = 16;
             this.textBox6.Text = "To edit an entry, select it from the list, change the desired values in the textb" +
     "ox, and then click Edit. To remove an entry, select it from the list and click R" +

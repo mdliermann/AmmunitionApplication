@@ -11,7 +11,7 @@ namespace AmmunitionProject
         SqlConnection con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
         SqlDataAdapter adapt;
         int id = -1;
-        int rifleid = -1; 
+        int rifleid = -1;
         public SessionsForm()
         {
             InitializeComponent();
@@ -19,12 +19,12 @@ namespace AmmunitionProject
 
             con.Open();
             adapt = new SqlDataAdapter("Select Rifle_ID, Make_Model From dbo.Rifles ORDER BY Make_Model", con);
-            DataSet ds = new DataSet();
-            adapt.Fill(ds, "Rifles");
+            DataTable dt = new DataTable();
+            adapt.Fill(dt);
             cbRifles.DisplayMember = "Make_Model";
             cbRifles.ValueMember = "Rifle_ID";
-            cbRifles.DataSource = ds.Tables["Rifles"];
-            con.Close(); 
+            cbRifles.DataSource = dt;
+            con.Close();
         }
 
         private void DisplayData()
@@ -38,7 +38,7 @@ namespace AmmunitionProject
             dgvSessions.ReadOnly = true;
             dgvSessions.MultiSelect = false;
             dgvSessions.Columns[0].Visible = false;
-            dgvSessions.Columns[1].Visible = false; 
+            dgvSessions.Columns[1].Visible = false;
 
             for (int i = 0; i < dgvSessions.Columns.Count; i++)
             {
@@ -65,9 +65,8 @@ namespace AmmunitionProject
             string humid = txtHumid.Text;
             int temp;
 
-            MessageBox.Show(rifleid.ToString());
             if (string.IsNullOrWhiteSpace(txtDate.Text) || !DateTime.TryParse(txtDate.Text, out date))
-                MessageBox.Show("Error: Date must be formatted YYYY-MM-DD");
+                MessageBox.Show("Error: Date formatted incorrectly");
             else if (string.IsNullOrWhiteSpace(txtWind.Text))
                 MessageBox.Show("Error: wind speed is empty");
             else if (string.IsNullOrWhiteSpace(txtTemp.Text) || !Int32.TryParse(txtTemp.Text, out temp))
@@ -78,27 +77,30 @@ namespace AmmunitionProject
                 MessageBox.Show("Error: distance is empty");
             else
             {
-                try
+                using (con)
                 {
-                    cmd = new SqlCommand("INSERT INTO dbo.Sessions(Date, Wind_Speed, Humidity, Distance, Rifle_ID, Temperature) " +
-                        "Values (@date, @wind, @humidity, @distance, @rifleID, @temperature)", con);
+                    try
+                    {
+                        cmd = new SqlCommand("INSERT INTO dbo.Sessions(Date, Wind_Speed, Humidity, Distance, Rifle_ID, Temperature) " +
+                            "Values (@date, @wind, @humidity, @distance, @rifleID, @temperature)", con);
 
-                    con.Open();
-                    cmd.Parameters.AddWithValue("@date", date);
-                    cmd.Parameters.AddWithValue("@wind", wind);
-                    cmd.Parameters.AddWithValue("@humidity", humid);
-                    cmd.Parameters.AddWithValue("@distance", distance);
-                    cmd.Parameters.AddWithValue("@rifleID", rifleid);
-                    cmd.Parameters.AddWithValue("@temperature", temp);
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                    MessageBox.Show("Session added successfully");
-                    DisplayData();
-                    ClearData();
-                }
-                catch (SqlException ex)
-                {
-                    MessageBox.Show("Error adding entry");
+                        con.Open();
+                        cmd.Parameters.AddWithValue("@date", date);
+                        cmd.Parameters.AddWithValue("@wind", wind);
+                        cmd.Parameters.AddWithValue("@humidity", humid);
+                        cmd.Parameters.AddWithValue("@distance", distance);
+                        cmd.Parameters.AddWithValue("@rifleID", rifleid);
+                        cmd.Parameters.AddWithValue("@temperature", temp);
+                        cmd.ExecuteNonQuery();
+
+                        MessageBox.Show("Session added successfully");
+                        DisplayData();
+                        ClearData();
+                    }
+                    catch (SqlException)
+                    {
+                        MessageBox.Show("Error adding entry");
+                    }
                 }
             }
         }
@@ -107,10 +109,10 @@ namespace AmmunitionProject
         {
             id = Convert.ToInt32(dgvSessions.Rows[e.RowIndex].Cells[0].Value.ToString());
             string tempdate = dgvSessions.Rows[e.RowIndex].Cells[3].Value.ToString();
-            
+
             tempdate = tempdate.Substring(0, tempdate.LastIndexOf(" 12:00:00 AM"));
             txtDate.Text = tempdate;
-            
+
             txtDistance.Text = dgvSessions.Rows[e.RowIndex].Cells[6].Value.ToString();
             txtHumid.Text = dgvSessions.Rows[e.RowIndex].Cells[5].Value.ToString();
             txtTemp.Text = dgvSessions.Rows[e.RowIndex].Cells[7].Value.ToString();
@@ -141,28 +143,31 @@ namespace AmmunitionProject
                 MessageBox.Show("Error: Temperature must be in integer");
             else
             {
-                try
+                using (con)
                 {
-                    cmd = new SqlCommand("UPDATE dbo.Sessions " +
-                        "SET Date = @date, Wind_Speed = @wind, Humidity = @humidity, Distance = @distance, Temperature = @temperature, Rifle_ID = @rifleid " +
-                        "WHERE Session_ID=@id", con);
-                    con.Open();
-                    cmd.Parameters.AddWithValue("@id", id);
-                    cmd.Parameters.AddWithValue("@date", date);
-                    cmd.Parameters.AddWithValue("@wind", wind);
-                    cmd.Parameters.AddWithValue("@humidity", humid);
-                    cmd.Parameters.AddWithValue("@distance", distance);
-                    cmd.Parameters.AddWithValue("@temperature", temp);
-                    cmd.Parameters.AddWithValue("@rifleid", rifleid);
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                    MessageBox.Show("Session updated successfully");
-                    DisplayData();
-                    ClearData();
-                }
-                catch (SqlException ex)
-                {
-                    MessageBox.Show("Error editing entry");
+                    try
+                    {
+                        cmd = new SqlCommand("UPDATE dbo.Sessions " +
+                            "SET Date = @date, Wind_Speed = @wind, Humidity = @humidity, Distance = @distance, Temperature = @temperature, Rifle_ID = @rifleid " +
+                            "WHERE Session_ID=@id", con);
+                        con.Open();
+                        cmd.Parameters.AddWithValue("@id", id);
+                        cmd.Parameters.AddWithValue("@date", date);
+                        cmd.Parameters.AddWithValue("@wind", wind);
+                        cmd.Parameters.AddWithValue("@humidity", humid);
+                        cmd.Parameters.AddWithValue("@distance", distance);
+                        cmd.Parameters.AddWithValue("@temperature", temp);
+                        cmd.Parameters.AddWithValue("@rifleid", rifleid);
+                        cmd.ExecuteNonQuery();
+
+                        MessageBox.Show("Session updated successfully");
+                        DisplayData();
+                        ClearData();
+                    }
+                    catch (SqlException)
+                    {
+                        MessageBox.Show("Error editing entry");
+                    }
                 }
             }
         }
@@ -188,7 +193,8 @@ namespace AmmunitionProject
 
         private void btnSeries_Click(object sender, EventArgs e)
         {
-           
+            SeriesForm sf = new SeriesForm();
+            sf.Show();
         }
 
         private void cbRifles_SelectedIndexChanged(object sender, EventArgs e)

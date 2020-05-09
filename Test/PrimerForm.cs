@@ -49,21 +49,24 @@ namespace AmmunitionProject
                 MessageBox.Show("Error: Description is blank");
             else
             {
-                try
+                using (con)
                 {
-                    cmd = new SqlCommand("INSERT INTO dbo.Primers(description) Values (@description)", con);
+                    try
+                    {
+                        cmd = new SqlCommand("INSERT INTO dbo.Primers(description) Values (@description)", con);
 
-                    con.Open();
-                    cmd.Parameters.AddWithValue("@description", txtDescription.Text);
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                    MessageBox.Show("Primer added successfully");
-                    DisplayData();
-                    ClearData();
-                }
-                catch(SqlException ex)
-                {
-                    MessageBox.Show("Error: duplicate entry");
+                        con.Open();
+                        cmd.Parameters.AddWithValue("@description", txtDescription.Text);
+                        cmd.ExecuteNonQuery();
+
+                        MessageBox.Show("Primer added successfully");
+                        DisplayData();
+                        ClearData();
+                    }
+                    catch (SqlException)
+                    {
+                        MessageBox.Show("Error: duplicate entry");
+                    }
                 }
             }
         }
@@ -82,23 +85,26 @@ namespace AmmunitionProject
                 MessageBox.Show("Please select a primer to edit");
             else
             {
-                try
+                using (con)
                 {
-                    cmd = new SqlCommand("UPDATE dbo.Primers " +
-                        "SET description = @description " +
-                        "WHERE Primer_ID=@id", con);
-                    con.Open();
-                    cmd.Parameters.AddWithValue("@id", id);
-                    cmd.Parameters.AddWithValue("@description", description);
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                    MessageBox.Show("Primer updated Successfully");
-                    DisplayData();
-                    ClearData();
-                }
-                catch (SqlException ex)
-                {
-                    MessageBox.Show("Error: Duplicate entry");
+                    try
+                    {
+                        cmd = new SqlCommand("UPDATE dbo.Primers " +
+                            "SET description = @description " +
+                            "WHERE Primer_ID=@id", con);
+                        con.Open();
+                        cmd.Parameters.AddWithValue("@id", id);
+                        cmd.Parameters.AddWithValue("@description", description);
+                        cmd.ExecuteNonQuery();
+
+                        MessageBox.Show("Primer updated Successfully");
+                        DisplayData();
+                        ClearData();
+                    }
+                    catch (SqlException)
+                    {
+                        MessageBox.Show("Error: Duplicate entry");
+                    }
                 }
             }
         }

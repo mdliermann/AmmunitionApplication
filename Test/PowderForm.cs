@@ -49,21 +49,24 @@ namespace AmmunitionProject
                 MessageBox.Show("Error: Manufacturer is blank");
             else
             {
-                try
+                using (con)
                 {
-                    cmd = new SqlCommand("INSERT INTO dbo.Powders(manufacturer) Values (@manufacturer)", con);
+                    try
+                    {
+                        cmd = new SqlCommand("INSERT INTO dbo.Powders(manufacturer) Values (@manufacturer)", con);
 
-                    con.Open();
-                    cmd.Parameters.AddWithValue("@manufacturer", txtPowderManufacturer.Text);
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                    MessageBox.Show("Powder updated successfully");
-                    DisplayData();
-                    ClearData();
-                }
-                catch (SqlException ex)
-                {
-                    MessageBox.Show("Error: Duplicate entry");
+                        con.Open();
+                        cmd.Parameters.AddWithValue("@manufacturer", txtPowderManufacturer.Text);
+                        cmd.ExecuteNonQuery();
+
+                        MessageBox.Show("Powder updated successfully");
+                        DisplayData();
+                        ClearData();
+                    }
+                    catch (SqlException)
+                    {
+                        MessageBox.Show("Error: Duplicate entry");
+                    }
                 }
             }
 
@@ -83,23 +86,26 @@ namespace AmmunitionProject
                 MessageBox.Show("Please select a powder to edit");
             else
             {
-                try
+                using (con)
                 {
-                    cmd = new SqlCommand("UPDATE dbo.Powders " +
-                    "SET manufacturer = @manufacturer " +
-                    "WHERE Powder_ID=@id", con);
-                    con.Open();
-                    cmd.Parameters.AddWithValue("@id", id);
-                    cmd.Parameters.AddWithValue("@manufacturer", manufacturer);
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                    MessageBox.Show("Powder updated Successfully");
-                    DisplayData();
-                    ClearData();
-                }
-                catch (SqlException ex)
-                {
-                    MessageBox.Show("Error: Duplicate entry");
+                    try
+                    {
+                        cmd = new SqlCommand("UPDATE dbo.Powders " +
+                        "SET manufacturer = @manufacturer " +
+                        "WHERE Powder_ID=@id", con);
+                        con.Open();
+                        cmd.Parameters.AddWithValue("@id", id);
+                        cmd.Parameters.AddWithValue("@manufacturer", manufacturer);
+                        cmd.ExecuteNonQuery();
+
+                        MessageBox.Show("Powder updated Successfully");
+                        DisplayData();
+                        ClearData();
+                    }
+                    catch (SqlException)
+                    {
+                        MessageBox.Show("Error: Duplicate entry");
+                    }
                 }
             }
         }

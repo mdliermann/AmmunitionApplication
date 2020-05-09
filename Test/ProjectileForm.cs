@@ -10,7 +10,7 @@ namespace AmmunitionProject
         SqlCommand cmd;
         SqlConnection con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
         SqlDataAdapter adapt;
-        int id = -1; 
+        int id = -1;
         public ProjectileForm()
         {
             InitializeComponent();
@@ -97,7 +97,7 @@ namespace AmmunitionProject
                     DisplayData();
                     ClearData();
                 }
-                catch(SqlException ex)
+                catch (SqlException)
                 {
                     MessageBox.Show("Error adding entry");
                 }
@@ -168,7 +168,7 @@ namespace AmmunitionProject
                     DisplayData();
                     ClearData();
                 }
-                catch(SqlException ex)
+                catch (SqlException)
                 {
                     MessageBox.Show("Error updating entry");
                 }
