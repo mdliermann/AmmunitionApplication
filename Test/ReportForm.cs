@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 
@@ -6,37 +7,40 @@ namespace AmmunitionProject
 {
     public partial class ReportForm : Form
     {
+        SqlConnection con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
+        SqlCommand cmd;
+        SqlDataAdapter adapt; 
         public ReportForm()
         {
             InitializeComponent();
-            Fill_Reports();
+            Fill_Combobox();
         }
 
-        void Fill_Reports()
+        void Fill_Combobox()
         {
-            string connetionString = "Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True";
-            SqlConnection cnn = new SqlConnection(connetionString);
-            string Query = "select convert(varchar(10), s.Date, 120) AS Date, r.Make_Model  from dbo.Sessions s Inner Join dbo.Rifles r ON r.Rifle_ID = s.Rifle_ID";
-            SqlCommand cmdDatabase = new SqlCommand(Query, cnn);
-            SqlDataReader reader;
-            try
-            {
-                cnn.Open();
-                reader = cmdDatabase.ExecuteReader();
+            adapt = new SqlDataAdapter("Select Session_ID, CONVERT(Varchar, Date, 101) AS Date, r.Make_Model From dbo.Sessions s " +
+                    "Inner Join dbo.Rifles r on r.Rifle_ID = s.Rifle_ID ORDER BY Date", con);
 
-                while (reader.Read())
+            DataTable dt = new DataTable();
+
+            using (con)
+            {
+                con.Open();
+                try
                 {
-                    string date = reader["Date"].ToString();
-                    string rifle = reader["make_model"].ToString();
-                    SessionsList.Items.Add(date + ": " + rifle);
+                    adapt.Fill(dt);
+                    dt.Columns.Add("Concatonated", typeof(string), "Date + ' ' + Make_Model");
+                    cmbSessionsList.DisplayMember = "Concatonated";
+                    cmbSessionsList.ValueMember = "Session_ID";
+                    cmbSessionsList.DataSource = dt;
+                    adapt.Dispose();
                 }
-
-                cnn.Close();
+                catch (SqlException ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
             }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.ToString());
-            }
+           
         }
 
         private void btnGenerate_Click(object sender, EventArgs e)
