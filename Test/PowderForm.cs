@@ -8,7 +8,7 @@ namespace AmmunitionProject
     public partial class PowderForm : Form
     {
         SqlCommand cmd;
-        SqlConnection con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
+        SqlConnection con;
         SqlDataAdapter adapt;
         int id = -1;
 
@@ -20,6 +20,7 @@ namespace AmmunitionProject
 
         private void DisplayData()
         {
+            con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
             con.Open();
             DataTable dt = new DataTable();
             adapt = new SqlDataAdapter("SELECT * FROM dbo.Powders", con);
@@ -49,6 +50,7 @@ namespace AmmunitionProject
                 MessageBox.Show("Error: Manufacturer is blank");
             else
             {
+                con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
                 using (con)
                 {
                     try
@@ -60,8 +62,11 @@ namespace AmmunitionProject
                         cmd.ExecuteNonQuery();
 
                         MessageBox.Show("Powder updated successfully");
+                        con.Close();
+
                         DisplayData();
                         ClearData();
+                        
                     }
                     catch (SqlException)
                     {
@@ -86,6 +91,7 @@ namespace AmmunitionProject
                 MessageBox.Show("Please select a powder to edit");
             else
             {
+                con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
                 using (con)
                 {
                     try
@@ -99,6 +105,8 @@ namespace AmmunitionProject
                         cmd.ExecuteNonQuery();
 
                         MessageBox.Show("Powder updated Successfully");
+                        con.Close();
+
                         DisplayData();
                         ClearData();
                     }
@@ -114,6 +122,7 @@ namespace AmmunitionProject
         {
             if (id != -1)
             {
+                con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
                 cmd = new SqlCommand("DELETE from dbo.Powders WHERE Powder_ID=@id", con);
                 con.Open();
                 cmd.Parameters.AddWithValue("@id", id);

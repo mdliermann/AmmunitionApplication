@@ -8,7 +8,7 @@ namespace AmmunitionProject
     public partial class CaseForm : Form
     {
         SqlCommand cmd;
-        SqlConnection con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
+        SqlConnection con;
         SqlDataAdapter adapt;
         int id = -1;
 
@@ -20,6 +20,7 @@ namespace AmmunitionProject
 
         private void DisplayData()
         {
+            con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
             con.Open();
             DataTable dt = new DataTable();
             adapt = new SqlDataAdapter("SELECT * FROM dbo.Cases", con);
@@ -49,6 +50,7 @@ namespace AmmunitionProject
                 MessageBox.Show("Error: Manufacturer is blank");
             else
             {
+                con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
                 using (con)
                 {
                     try
@@ -61,6 +63,7 @@ namespace AmmunitionProject
                         MessageBox.Show("Case added successfully");
                         DisplayData();
                         ClearData();
+                        con.Close(); 
                     }
                     catch (SqlException)
                     {
@@ -85,6 +88,7 @@ namespace AmmunitionProject
                 MessageBox.Show("Please select a case to edit");
             else
             {
+                con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
                 using (con)
                 {
                     try
@@ -100,6 +104,7 @@ namespace AmmunitionProject
                         MessageBox.Show("Case updated successfully");
                         DisplayData();
                         ClearData();
+                        con.Close(); 
                     }
                     catch (SqlException)
                     {
@@ -113,6 +118,7 @@ namespace AmmunitionProject
         {
             if (id != -1)
             {
+                con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
                 cmd = new SqlCommand("DELETE from dbo.Cases WHERE Case_ID=@id", con);
                 con.Open();
                 cmd.Parameters.AddWithValue("@id", id);

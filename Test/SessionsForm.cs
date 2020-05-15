@@ -8,7 +8,7 @@ namespace AmmunitionProject
     public partial class SessionsForm : Form
     {
         SqlCommand cmd;
-        SqlConnection con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
+        SqlConnection con;
         SqlDataAdapter adapt;
         int id = -1;
         int rifleid = -1;
@@ -29,6 +29,7 @@ namespace AmmunitionProject
 
         private void DisplayData()
         {
+            con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
             con.Open();
             DataTable dt = new DataTable();
             adapt = new SqlDataAdapter("select s.Session_ID, s.Rifle_ID, r.Make_Model, s.Date, s.Wind_Speed, s.Humidity, s.Distance, s.Temperature " +
@@ -77,6 +78,7 @@ namespace AmmunitionProject
                 MessageBox.Show("Error: distance is empty");
             else
             {
+                con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
                 using (con)
                 {
                     try
@@ -94,8 +96,10 @@ namespace AmmunitionProject
                         cmd.ExecuteNonQuery();
 
                         MessageBox.Show("Session added successfully");
+                        con.Close(); 
                         DisplayData();
                         ClearData();
+                        
                     }
                     catch (SqlException)
                     {
@@ -143,6 +147,7 @@ namespace AmmunitionProject
                 MessageBox.Show("Error: Temperature must be in integer");
             else
             {
+                con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
                 using (con)
                 {
                     try
@@ -159,7 +164,7 @@ namespace AmmunitionProject
                         cmd.Parameters.AddWithValue("@temperature", temp);
                         cmd.Parameters.AddWithValue("@rifleid", rifleid);
                         cmd.ExecuteNonQuery();
-
+                        con.Close(); 
                         MessageBox.Show("Session updated successfully");
                         DisplayData();
                         ClearData();
@@ -176,6 +181,7 @@ namespace AmmunitionProject
         {
             if (id != -1)
             {
+                con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
                 cmd = new SqlCommand("DELETE from dbo.Sessions WHERE Session_ID=@id", con);
                 con.Open();
                 cmd.Parameters.AddWithValue("@id", id);

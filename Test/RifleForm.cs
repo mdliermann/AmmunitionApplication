@@ -9,7 +9,7 @@ namespace AmmunitionProject
 
     {
         SqlCommand cmd;
-        SqlConnection con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
+        SqlConnection con;
         SqlDataAdapter adapt;
         int id = -1;
 
@@ -21,6 +21,7 @@ namespace AmmunitionProject
 
         private void DisplayData()
         {
+            con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
             con.Open();
             DataTable dt = new DataTable();
             adapt = new SqlDataAdapter("SELECT * FROM dbo.Rifles", con);
@@ -62,6 +63,7 @@ namespace AmmunitionProject
                 MessageBox.Show("Error: Scope is blank");
             else
             {
+                con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
                 using (con)
                 {
                     try
@@ -117,6 +119,7 @@ namespace AmmunitionProject
                 MessageBox.Show("Error: Scope is blank");
             else
             {
+                con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
                 using (con)
                 {
                     try
@@ -148,6 +151,7 @@ namespace AmmunitionProject
         {
             if (id != -1)
             {
+                con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
                 cmd = new SqlCommand("DELETE from dbo.Rifles WHERE Rifle_ID=@id", con);
                 con.Open();
                 cmd.Parameters.AddWithValue("@id", id);

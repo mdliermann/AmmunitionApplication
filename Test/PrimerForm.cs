@@ -8,7 +8,7 @@ namespace AmmunitionProject
     public partial class PrimerForm : Form
     {
         SqlCommand cmd;
-        SqlConnection con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
+        SqlConnection con;
         SqlDataAdapter adapt;
         int id = -1;
 
@@ -20,6 +20,7 @@ namespace AmmunitionProject
 
         private void DisplayData()
         {
+            con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
             con.Open();
             DataTable dt = new DataTable();
             adapt = new SqlDataAdapter("SELECT * FROM dbo.Primers", con);
@@ -49,6 +50,7 @@ namespace AmmunitionProject
                 MessageBox.Show("Error: Description is blank");
             else
             {
+                con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
                 using (con)
                 {
                     try
@@ -60,8 +62,11 @@ namespace AmmunitionProject
                         cmd.ExecuteNonQuery();
 
                         MessageBox.Show("Primer added successfully");
+                        con.Close();
+
                         DisplayData();
                         ClearData();
+                        
                     }
                     catch (SqlException)
                     {
@@ -85,6 +90,7 @@ namespace AmmunitionProject
                 MessageBox.Show("Please select a primer to edit");
             else
             {
+                con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
                 using (con)
                 {
                     try
@@ -98,8 +104,11 @@ namespace AmmunitionProject
                         cmd.ExecuteNonQuery();
 
                         MessageBox.Show("Primer updated Successfully");
+                        con.Close();
+
                         DisplayData();
                         ClearData();
+                        
                     }
                     catch (SqlException)
                     {
@@ -113,6 +122,7 @@ namespace AmmunitionProject
         {
             if (id != -1)
             {
+                con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
                 cmd = new SqlCommand("DELETE from dbo.Primers WHERE Primer_ID=@id", con);
                 con.Open();
                 cmd.Parameters.AddWithValue("@id", id);

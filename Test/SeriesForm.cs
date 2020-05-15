@@ -26,6 +26,7 @@ namespace AmmunitionProject
             con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
             using (con)
             {
+                con.Open(); 
                 adapt = new SqlDataAdapter("Select Case_ID, Manufacturer From dbo.Cases ORDER BY Manufacturer", con);
                 dt = new DataTable();
                 adapt.Fill(dt);
@@ -68,6 +69,7 @@ namespace AmmunitionProject
                 cmbSessions.ValueMember = "Session_ID";
                 cmbSessions.DataSource = dt;
                 adapt.Dispose();
+                con.Close(); 
             }
         }
 
@@ -118,6 +120,7 @@ namespace AmmunitionProject
             DataTable dt;
             using (con)
             {
+                con.Open(); 
                 adapt = new SqlDataAdapter("Select Series_ID, Series_Number From dbo.Series WHERE Session_ID = @id ORDER BY Series_Number", con);
                 adapt.SelectCommand.Parameters.AddWithValue("@id", sessionid);
                 dt = new DataTable();
@@ -126,6 +129,7 @@ namespace AmmunitionProject
                 cmbSeries.ValueMember = "Series_ID";
                 cmbSeries.DataSource = dt;
                 adapt.Dispose();
+                con.Close(); 
             }
             DisplaySeriesData();
         }
@@ -174,7 +178,8 @@ namespace AmmunitionProject
                 MessageBox.Show("Error: Group width must be a decimal");
             else
             {
-                using (con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True"))
+                con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True"); 
+                using (con)
                 {
                     con.Open();
                     using (SqlCommand numb = new SqlCommand("SELECT MAX(Series_Number) AS Next FROM dbo.Series " +
@@ -194,8 +199,10 @@ namespace AmmunitionProject
                             MessageBox.Show(number.ToString());
                         }
                     }
+                    con.Close(); 
                     try
                     {
+                        con.Open(); 
                         cmd = new SqlCommand("INSERT INTO dbo.Series(Session_ID, Projectile_ID, Case_ID, Primer_ID, Powder_ID," +
                             " Powder_Amount, COAL, CBTO, Group_Height, Group_Width, Series_Number) " +
                                 "Values (@id, @proj, @case, @prim, @pow, @powAmt, @COAL, @CBTO, @height, @width, @num)", con);
@@ -227,7 +234,7 @@ namespace AmmunitionProject
 
         private void btnEditSeries_Click(object sender, EventArgs e)
         {
-            con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
+            
             sessionid = Convert.ToInt32(cmbSessions.SelectedValue);
             int proj = Convert.ToInt32(cmbProjectiles.SelectedValue);
             int cases = Convert.ToInt32(cmbCases.SelectedValue);
@@ -250,6 +257,7 @@ namespace AmmunitionProject
                 MessageBox.Show("Error: Group width must be a decimal");
             else
             {
+                con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
                 using (con)
                 {
                     try
@@ -270,7 +278,7 @@ namespace AmmunitionProject
                         cmd.Parameters.AddWithValue("@height", height);
                         cmd.Parameters.AddWithValue("@width", width);
                         cmd.ExecuteNonQuery();
-
+                        con.Close(); 
                         MessageBox.Show("Series updated successfully");
                         DisplayShotData();
                         ClearShotData();
@@ -309,6 +317,7 @@ namespace AmmunitionProject
             con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
             using (con)
             {
+                con.Open(); 
                 DataTable dt = new DataTable();
                 adapt = new SqlDataAdapter("SELECT se.Series_ID, sh.Shot_ID, sh.Shot_Number, sh.Speed FROM dbo.Shots sh " +
                     "INNER JOIN dbo.Series se ON sh.Series_ID = se.Series_ID " +
@@ -325,6 +334,7 @@ namespace AmmunitionProject
                 {
                     dgvShots.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                 }
+                con.Close(); 
             }
         }
 
@@ -336,7 +346,7 @@ namespace AmmunitionProject
 
         private void btnNewShot_Click(object sender, EventArgs e)
         {
-            con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
+            
             int speed;
             int number;
             seriesid = Convert.ToInt32(cmbSeries.SelectedValue);
@@ -347,6 +357,7 @@ namespace AmmunitionProject
                 MessageBox.Show("Error: speed must be a number");
             else
             {
+                con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
                 using (con)
                 {
                     con.Open();
@@ -358,16 +369,21 @@ namespace AmmunitionProject
                         {
                             if (read.Read())
                             {
-                                number = Convert.ToInt32(read["Next"]) + 1;
+                                if (read["Next"] == DBNull.Value)
+                                    number = 1;
+                                else
+                                    number = Convert.ToInt32(read["Next"]) + 1;
                             }
                             else
                             {
-                                number = 0;
+                                number = 1;
                             }
                         }
                     }
+                    con.Close(); 
                     try
                     {
+                        con.Open(); 
                         cmd = new SqlCommand("INSERT INTO dbo.Shots (Shot_Number, Series_ID, Speed) " +
                                 "Values (@numb, @id, @speed)", con);
 
@@ -375,10 +391,11 @@ namespace AmmunitionProject
                         cmd.Parameters.AddWithValue("@id", seriesid);
                         cmd.Parameters.AddWithValue("@speed", speed);
                         cmd.ExecuteNonQuery();
-
+                        con.Close(); 
                         MessageBox.Show("Shot added successfully");
                         DisplayShotData();
                         ClearShotData();
+
                     }
                     catch (SqlException)
                     {

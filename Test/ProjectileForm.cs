@@ -8,7 +8,7 @@ namespace AmmunitionProject
     public partial class ProjectileForm : Form
     {
         SqlCommand cmd;
-        SqlConnection con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
+        SqlConnection con;
         SqlDataAdapter adapt;
         int id = -1;
         public ProjectileForm()
@@ -19,6 +19,7 @@ namespace AmmunitionProject
 
         private void DisplayData()
         {
+            con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
             con.Open();
             DataTable dt = new DataTable();
             adapt = new SqlDataAdapter("SELECT * FROM dbo.projectiles", con);
@@ -73,6 +74,7 @@ namespace AmmunitionProject
                 MessageBox.Show("Error: BC_G7 is not correctly formatted. Must be a decimal");
             else
             {
+                con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
                 try
                 {
                     cmd = new SqlCommand("INSERT INTO dbo.Projectiles(PN, Brand, Diameter, Description, Weight, BC_G1, BC_G7) " +
@@ -93,6 +95,7 @@ namespace AmmunitionProject
 
                     cmd.ExecuteNonQuery();
                     con.Close();
+
                     MessageBox.Show("Projectile added successfully");
                     DisplayData();
                     ClearData();
@@ -145,6 +148,7 @@ namespace AmmunitionProject
                 MessageBox.Show("Error: BC_G7 is not correctly formatted. Must be a decimal");
             else
             {
+                con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
                 try
                 {
                     cmd = new SqlCommand("UPDATE dbo.Projectiles " +
@@ -164,6 +168,7 @@ namespace AmmunitionProject
                         cmd.Parameters.AddWithValue("@bcg7", bc_g7);
                     cmd.ExecuteNonQuery();
                     con.Close();
+
                     MessageBox.Show("Projectile updated successfully");
                     DisplayData();
                     ClearData();
@@ -179,11 +184,13 @@ namespace AmmunitionProject
         {
             if (id != -1)
             {
+                con = new SqlConnection("Data Source=MITCHELLDESKTOP;Initial Catalog=CompSciProject;Integrated Security=True");
                 cmd = new SqlCommand("DELETE from dbo.Projectiles WHERE Projectile_ID=@id", con);
                 con.Open();
                 cmd.Parameters.AddWithValue("@id", id);
                 cmd.ExecuteNonQuery();
                 con.Close();
+
                 MessageBox.Show("Projectile deleted successfully");
                 DisplayData();
                 ClearData();
